@@ -7,7 +7,14 @@ const knexInstance = knex({
 });
 console.log('knex and driver installed correctly');
 
-knexInstance.from('amazong_products').select('*')
-  .then(result => {
-    console.log(result)
-  });
+const qry = knexInstance
+  .select('product_id', 'name', 'price', 'category')
+  .from('amazong_products')
+  .where({ name: 'Point of view gun' })
+  .first()
+  .toQuery()
+  // .then(result => {
+  //   console.log(result);
+  // });
+
+  console.log(qry);
