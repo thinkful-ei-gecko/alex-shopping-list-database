@@ -29,7 +29,7 @@ This assignment should take about 45 minutes to complete. If you're having troub
 
 ### 2019-10-01 16:11:53
 
-The assignment is complete. Comparing my sql to the solution, I could have used `decimal()` to better structure the data to load as desired in create.shopping_list.sql:
+The assignment is complete. Comparing my original sql to the solution, I could have used `decimal()` to better structure the data to load as desired in create.shopping_list.sql:
 
     CREATE TABLE IF NOT EXISTS shopping_list (
     id ...
