@@ -42,6 +42,6 @@ The assignment is complete. Comparing my original sql to the solution, I could h
 
 At the end, I was trying to coerce the final data into a new format instead of defining it properly in the SQL.
 
-The solution's sql also used `TIMESTAMP` instead of `DATE`, although I'm not sure why that's significant.
+The solution's sql also used `TIMESTAMP` instead of `DATE`. This is better because it is more specific, including the time as well as the date - you could theoretically have more specific queries from this.
 
 In regards to drills.js, the solution also had some more explicit output, such as including `console.log('COST PER CATEGORY)` above the result log and `.sum('price as total')` to more explicitly define what each console log was showing.
