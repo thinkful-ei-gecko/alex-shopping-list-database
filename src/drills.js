@@ -8,6 +8,8 @@ const knexInstance = knex({
 
 console.log('Initial connection successful!');
 
+
+//DRILL ONE
 function searchByName(searchTerm) {
   knexInstance
     .select('name', 'price', 'date_added', 'checked', 'category')
@@ -21,4 +23,20 @@ function searchByName(searchTerm) {
     });
 }
 
-searchByName('burger');
+// searchByName('burger');
+
+//DRILL TWO
+function getPaginatedBy(pageNumber){
+
+  knexInstance
+    .select('id', 'name', 'price', 'date_added', 'checked', 'category')
+    .from('shopping_list')
+    .limit(6)
+    .offset(6 * (pageNumber -1))
+    .then(result => {
+      console.log(result);
+    });
+
+}
+
+getPaginatedBy(3);
