@@ -46,8 +46,24 @@ function getItemsAfter(daysAgo) {
       '>',
       knexInstance.raw(`now() - '?? days'::INTERVAL`, daysAgo))
     .then(result => {
-      console.log(result.length);
+      console.log(result);
     });
 }
 
-getItemsAfter(2);
+// getItemsAfter(2);
+
+//DRILL FOUR
+
+function costByCategory() {
+  knexInstance
+    .select('category')
+    .sum('price')
+    .from('shopping_list')
+    .groupBy('category')
+    .orderBy('category', 'asc')
+    .then(result => {
+      console.log(result);
+    });
+}
+
+costByCategory();
