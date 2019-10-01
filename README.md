@@ -1,26 +1,47 @@
-# Express Boilerplate
+# Databases With Node Drills
 
-This is a boilerplate used for starting new express projects.
+## Drills
+With the shopping_list table in place, make a new file inside your knex-practice project, ./src/drills.js. Inside the drills file, connect knex to your knex-practice database and write functions that can perform the following queries:
 
-## Set up
+1. Get all items that contain text
 
-Complete the following steps to start a new project (NEW-PROJECT-NAME):
+    - A function that takes one parameter for searchTerm which will be any string
+    - The function will query the shopping_list table using Knex methods and select the rows which have a name that contains the searchTerm using a case insensitive match.
 
-1. Clone this repository to your local machine `git clone BOILERPLATE-URL NEW-PROJECTS-NAME`
-2. `cd` into the cloned repository.
-3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
-4. Install the node dependencies `npm install`
-5. Move the example Environment file to `.env` that will be ignored by git and read by the express server `mv example.env .env`
-6. Edit the contents of the `package.json` to use NEW-PROJECT-NAME instead of `"name": "express-boilerplate",`
+2. Get all items paginated
 
-## Scripts
+    - A function that takes one parameter for pageNumber which will be a number
+    - The function will query the shopping_list table using Knex methods and select the pageNumber page of rows paginated to 6 items per page.
 
-Start the application `npm start`
+3. Get all items added after date
 
-Start nodemon for the application `npm run dev`
+    - A function that takes one parameter for daysAgo which will be a number representing a number of days.
+    - This function will query the shopping_list table using Knex methods and select the rows which have a date_added that is greater than the daysAgo.
 
-Run the tests `npm test`
+4. Get the total cost for each category
 
-## Deploying
+    - A function that takes no parameters
+    - The function will query the shopping_list table using Knex methods and select the rows grouped by their category and showing the total price for each category.
 
-When your new project is ready for deployment, add a new Heroku application with `heroku create`. This will make a new git remote called "heroku" and you can then `npm run deploy` which will push to this remote's master branch.
+This assignment should take about 45 minutes to complete. If you're having trouble, attend a Q&A session or reach out on Slack for help.
+
+## POSTMORTEM
+
+### 2019-10-01 16:11:53
+
+The assignment is complete. Comparing my sql to the solution, I could have used `decimal()` to better structure the data to load as desired in create.shopping_list.sql:
+
+    CREATE TABLE IF NOT EXISTS shopping_list (
+    id ...
+    // This line:
+    price FLOAT(2) NOT NULL,
+    //Should have been:
+    price decimal(10, 2) NOT NULL
+    ...
+    );
+
+At the end, I was trying to coerce the final data into a new format instead of defining it properly in the SQL.
+
+The solution's sql also used `TIMESTAMP` instead of `DATE`, although I'm not sure why that's significant.
+
+In regards to drills.js, the solution also had some more explicit output, such as including `console.log('COST PER CATEGORY)` above the result log and `.sum('price as total')` to more explicitly define what each console log was showing.

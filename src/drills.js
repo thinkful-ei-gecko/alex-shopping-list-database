@@ -33,7 +33,7 @@ function getPaginatedBy(pageNumber) {
     });
 }
 
-// getPaginatedBy(3);
+getPaginatedBy(3);
 
 //DRILL THREE
 
