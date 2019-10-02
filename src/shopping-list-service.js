@@ -1,18 +1,29 @@
-const shoppingListService = {
-  getAllFromShoppingList(knex) {
-    return Promise.resolve('Get All Chained!');
+const ShoppingListService = {
+  getAllFromList(knex) {
+    return knex.select('*').from('shopping_list');
   },
 
-  insertToShoppingList(knex, newItem) {
-    return Promise.resolve('Item Inserted Chained!');
+  getById(knex, id) {
+    return knex.from('shopping_list').select('*').where({ id }).first();
   },
 
-  updateShoppingListItem(knex, id, newData) {
-    return Promise.resolve('Update Chained!');
+  insertToList(knex, newItem) {
+    return knex
+      .into('shopping_list')
+      .insert(newItem)
+      .returning('*')
+      .then(rows => {
+        return rows[0];
+      });
   },
 
-  deleteShoppingListItem(knex, id) {
-    return Promise.resolve('Delete Chained!');
+  updateListItem(knex, id, newData) {
+    return knex.from('shopping_list').where({ id }).update(newData);
+  },
 
+  deleteListItem(knex, id) {
+    return knex('shopping_list').where({ id }).delete();
   }
 };
+
+module.exports = ShoppingListService;
