@@ -9,27 +9,27 @@ console.log('knex and driver installed correctly');
 
 function searchByProduceName(searchTerm) {
   knexInstance
-  .select('product_id', 'name', 'price', 'category')
-  .from('amazong_products')
-  .where('name', 'ILIKE', `%${searchTerm}%`)
-  .then(result => {
-    console.log(result)
-  });
+    .select('product_id', 'name', 'price', 'category')
+    .from('amazong_products')
+    .where('name', 'ILIKE', `%${searchTerm}%`)
+    .then(result => {
+      console.log(result);
+    });
 }
 
 // searchByProduceName('holo');
 
 function paginateProducts(page) {
-  const productsPerPage = 10
-  const offset = productsPerPage * (page - 1)
+  const productsPerPage = 10;
+  const offset = productsPerPage * (page - 1);
   knexInstance
     .select('product_id', 'name', 'price', 'category')
     .from('amazong_products')
     .limit(productsPerPage)
     .offset(offset)
     .then(result => {
-      console.log(result)
-    })
+      console.log(result);
+    });
 }
 
 // paginateProducts(2)
@@ -40,12 +40,11 @@ function getProductsWithImages() {
     .from('amazong_products')
     .whereNotNull('image')
     .then(result => {
-      console.log(result)
-    })
+      console.log(result);
+    });
 }
 
 // getProductsWithImages()
-
 
 /*
 SQL Syntax for following function:
@@ -71,11 +70,11 @@ function mostPopularVideosForDays(days) {
     .groupBy('video_name', 'region')
     .orderBy([
       { column: 'region', order: 'ASC' },
-      { column: 'views', order: 'DESC'}
+      { column: 'views', order: 'DESC' }
     ])
     .then(result => {
-      console.log(result)
-    })
+      console.log(result);
+    });
 }
 
 mostPopularVideosForDays(30);
