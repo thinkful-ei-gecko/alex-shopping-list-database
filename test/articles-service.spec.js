@@ -24,17 +24,21 @@ describe('Articles service object', function() {
     },
   ];
 
-  before(() => {
+  //Before hook, starts connection to test environment database.
+  before(()=> {
     db = knex({
       client: 'pg',
       connection: process.env.TEST_DB_URL
     });
   });
 
-  afterEach(()=>  db('blogful_articles').truncate());
-
+  //Trims potential data out of database before running tests.
   before(() => db('blogful_articles').truncate());
 
+  //Trims data out of db after test runs.
+  afterEach(()=>  db('blogful_articles').truncate());  
+
+  //Ends connection after testing done.
   after(() => db.destroy());
 
   describe('getAllArticles()', () => {
@@ -60,6 +64,23 @@ describe('Articles service object', function() {
         return ArticlesService.getAllArticles(db)
           .then(actual => {
             expect(actual).to.eql([]);
+          });
+      });
+
+      it(`insertArticle() inserts a new article and resolves the new article with an 'id'`, () => {
+        const newArticle = {
+          title: 'I Am Fake Title',
+          content: 'Shabba Dabba Doo I am going to find you',
+          date_published: new Date('2020-01-01T00:00:00.000Z')
+        };
+        return ArticlesService.insertArticle(db, newArticle)
+          .then(actual => {
+            expect(actual).to.eql({
+              id: 1,
+              title: newArticle.title,
+              content: newArticle.content,
+              date_published: newArticle.date_published,
+            });
           });
       });
     });
